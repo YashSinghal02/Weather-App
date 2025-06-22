@@ -1,0 +1,65 @@
+ body {
+      background: linear-gradient(to right, #0066cc, #66ccff);
+      color: #222;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    header {
+      background-color: rgba(0, 51, 102, 0.85);
+      width: 100%;
+      padding: 1rem 0;
+      text-align: center;
+      color: #fff;
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+      margin-bottom: 1rem;
+    }
+    main {
+      max-width: 900px;
+      width: 95%;
+      margin-bottom: 3rem;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 15px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+      padding: 1.5rem 2rem;
+    }
+    #forecast {
+      user-select: none;
+    }
+    .forecast-day {
+      background: #f1faff;
+      border-radius: 12px;
+      padding: 0.7rem 1rem;
+      box-shadow: 0 2px 8px rgba(0,102,204,0.2);
+      text-align: center;
+      cursor: default;
+      transition: background-color 0.3s ease;
+    }
+    .forecast-day:hover {
+      background: #d9ecff;
+    }
+    .remove-fav {
+      cursor: pointer;
+      font-weight: 700;
+      color: #dc3545;
+      user-select: none;
+      margin-left: 0.5rem;
+    }
+    .remove-fav:hover {
+      color: #a71d2a;
+    }
+    .api-setup {
+      background: #fff3cd;
+      border: 1px solid #ffeaa7;
+      border-radius: 8px;
+      padding: 1rem;
+      margin-bottom: 1rem;
+    }
+    .loading {
+      opacity: 0.6;
+      pointer-events: none;
+    }
