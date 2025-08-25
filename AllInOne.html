@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title> Weather App</title>
+    <link rel="icon" type="image" href="images.jpeg" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&display=swap">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Ubuntu", sans-serif;
+    }
+
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background-image: url(Back.jpg);
+      background-size: cover;
+      background-position: center;
+    }
+.heading{
+    text-align: center;
+    font-size: 30px;
+    font-weight: 600;
+    margin: 0 0 30px 0;
+    color: #1ba0ff;
+}
+    .container {
+    width: 420px;
+      background: rgba(255, 255, 255, 0.316);
+      padding: 25px 20px;
+      border-radius: 18px;
+      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.25);
+      backdrop-filter: blur(12px);
+    }
+
+
+    .inputtext {
+      margin-bottom: 15px;
+      display: flex;
+      gap: 8px;
+    }
+
+    input {
+      flex: 1;
+      padding: 12px 14px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    input:focus {
+      border-color: #348AC7;
+      box-shadow: 0 0 6px rgba(52,138,199,0.4);
+      outline: none;
+    }
+
+ button {
+  background: linear-gradient(135deg, #1ba0ff, #0077ff);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 12px 20px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 119, 255, 0.25);
+}
+
+button:hover {
+  background: linear-gradient(135deg, #23a0ff, #008cff);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(0, 119, 255, 0.35);
+}
+
+button:active {
+  transform: scale(0.96);
+  box-shadow: 0 3px 6px rgba(0, 119, 255, 0.3);
+}
+
+    .error {
+      display: none;
+      text-align: center;
+      font-weight: 600;
+      font-size: 22px;
+      color: rgb(0, 0, 0);
+      margin: 10px 0;
+    }
+
+    .inner-container {
+      display: none;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .locations {
+      display: flex;
+      justify-content: space-between;
+      font-weight: 600;
+      font-size: 15px;
+    }
+
+    /* Weather Card */
+    .weather-card, .air-card {
+      background: #fff;
+      border-radius: 14px;
+      padding: 18px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    }
+
+  
+
+    .temp-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    .temp {
+      font-size: 36px;
+      font-weight: 700;
+    }
+
+    .icon {
+      width: 85px;
+      height: 85px;
+    }
+
+    .weather-details {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 14px;
+      font-size: 14px;
+      font-weight: 500;
+      gap: 5px;
+    }
+
+    .weather-details div {
+     display: flex;
+    align-items: center;
+    gap: 6px;
+     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+    background: linear-gradient(64deg, #f8f9fa 0%, #dfebf7 100%);
+    padding: 10px 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.08);
+    }
+
+    .small-icon {
+      width: 30px;
+      height: 30px;
+    }
+
+    /* AQI Card */
+    .air-qaulity-text {
+      font-size: 18px;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 14px;
+    }
+
+    .airquality {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .airquality > div {
+     border-radius: 10px;
+    padding: 10px 1px;
+    font-size: 14px;
+    font-weight: 600;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+    background: linear-gradient(64deg, #f8f9fa 0%, #dfebf7 100%);
+    width: 95px;
+    height: 60px;
+    text-align: center;
+    transition: transform 0.3s ease;
+    }
+.cityname,.country{
+    font-size: 15px;
+}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- <h2 class="heading">Weather App</h2> -->
+    <div class="inputtext">
+      <input type="text" placeholder="Enter city...">
+      <button onclick="Search()">Search</button>
+    </div>
+
+    <div class="error">Invalid Data</div>
+
+    <div class="inner-container">
+      <!-- Location -->
+      <div class="locations">
+        <div class="cityname"></div>
+        <div class="country"></div>
+      </div>
+
+      <!-- Weather Card -->
+      <div class="weather-card">
+        <div class="temp-icon">
+          <div class="temp"></div>
+          <img class="icon" src="" alt="Weather Icon">
+        </div>
+
+        <div class="weather-details">
+          <div class="cloud">
+            <img src="cloudCover.png" class="small-icon" alt="Cloud">
+            <span class="cloud-text"></span>
+          </div>
+          <div class="humidity">
+            <img src="humidityratio.png" class="small-icon" alt="Humidity">
+            <span class="humidity-text"></span>
+          </div>
+          <div class="wind">
+            <img src="windspeed.png" class="small-icon" alt="Wind">
+            <span class="wind-text"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Air Quality Card -->
+      <div class="air-card">
+        <h3 class="air-qaulity-text">Air Quality Index (AQI)</h3>
+        <div class="airquality">
+          <div class="PM2"></div>
+          <div class="PM10"></div>
+          <div class="O3"></div>
+          <div class="NO"></div>
+          <div class="SO2"></div>
+          <div class="co"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let key = "abd5a3df6c5a4e9599f123553252108";
+
+    async function Search() {
+      try {
+        let city = document.querySelector("input").value;
+
+        if (city.trim() === '') {
+          alert("Enter The City");
+          return;
+        }
+
+        let res = await fetch(`http://api.weatherapi.com/v1/current.json?key=${key}&q=${city}&aqi=yes`);
+
+        if (res.status == 400) {
+          document.querySelector(".error").style.display = "block";
+          document.querySelector(".inner-container").style.display = "none";
+        } else {
+          let data = await res.json();
+          console.log(data)
+
+          document.querySelector(".cityname").innerHTML = `City : ${data.location.name}`;
+          document.querySelector(".country").innerHTML = `Country : ${data.location.country}`;
+          document.querySelector(".temp").innerHTML = `${Math.floor(data.current.temp_c)}°C`;
+
+          document.querySelector(".cloud-text").innerHTML = `${data.current.cloud}% Cloud`;
+          document.querySelector(".humidity-text").innerHTML = `${data.current.humidity}% Humidity`;
+          document.querySelector(".wind-text").innerHTML = `${data.current.wind_kph} kph Wind`;
+
+          // Air Quality
+          document.querySelector(".PM2").innerHTML = `PM2.5<br>${data.current.air_quality.pm2_5.toFixed(1)} µg/m³`;
+          document.querySelector(".PM10").innerHTML = `PM10<br>${data.current.air_quality.pm10.toFixed(1)} µg/m³`;
+          document.querySelector(".O3").innerHTML = `O₃<br>${data.current.air_quality.o3.toFixed(1)} µg/m³`;
+          document.querySelector(".NO").innerHTML = `NO₂<br>${data.current.air_quality.no2.toFixed(1)} µg/m³`;
+          document.querySelector(".SO2").innerHTML = `SO₂<br>${data.current.air_quality.so2.toFixed(1)} µg/m³`;
+          document.querySelector(".co").innerHTML = `CO<br>${(data.current.air_quality.co/1000).toFixed(2)} mg/m³`;
+
+          // Weather icon
+          let weatherIcon = document.querySelector(".icon");
+          let condition = data.current.condition.text;
+
+          if (condition === "Clear") {
+            weatherIcon.src = "clear.png";
+          }
+          else if (condition === "Clouds" || condition === "Cloudy" || condition === "Partly Cloudy" || condition === "Overcast") {
+            weatherIcon.src = "clouds.png";
+          } 
+          else if (condition === "Drizzle") {
+            weatherIcon.src = "drizzle.png";
+          }
+          else if (condition === "Mist") {
+            weatherIcon.src = "mist.png";
+          }
+          else if (condition === "Rain" || condition === "Light rain" || condition === "Light rain shower")  {
+            weatherIcon.src = "rain.png";
+          }
+          else if(condition === "Moderate or heavy rain shower" || condition === "Moderate or heavy rain with thunder")
+          {
+             weatherIcon.src = "thunder.png";
+          }
+
+          else if (condition === "Snow") {
+            weatherIcon.src = "snow.png";
+          }
+          else if (condition === "Fog") {
+            weatherIcon.src = "fog.png";
+          }
+          else if (condition === "Patchy rain nearby") {
+            weatherIcon.src = "patchyrain.png";
+          }
+          else {
+            weatherIcon.src = "default.png";
+          }
+
+          document.querySelector(".inner-container").style.display = "flex";
+          document.querySelector(".error").style.display = "none";
+          document.querySelector("input").value = '';
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  </script>
+</body>
+</html>
