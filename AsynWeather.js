@@ -5,7 +5,7 @@ let key = "abd5a3df6c5a4e9599f123553252108";
         let city = document.querySelector("input").value;
 
         if (city.trim() === '') {
-          alert("Enter The City");
+          alert("Enter some City.");
           return;
         }
 
