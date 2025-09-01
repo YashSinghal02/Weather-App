@@ -18,8 +18,8 @@ let key = "abd5a3df6c5a4e9599f123553252108";
           let data = await res.json();
           console.log(data)
 
-          document.querySelector(".cityname").innerHTML = `City : ${data.location.name}`;
-          document.querySelector(".country").innerHTML = `Country : ${data.location.country}`;
+          document.querySelector(".cityname").innerHTML = `<i class="fa-solid fa-location-dot pinicon"></i> : ${data.location.name}`;
+          document.querySelector(".countryname").innerHTML = `<i class="fa-solid fa-earth-americas countryicon"></i> : ${data.location.country}`;
           document.querySelector(".temp").innerHTML = `${Math.floor(data.current.temp_c)}°C`;
 
           document.querySelector(".cloud-text").innerHTML = `${data.current.cloud}% Cloud`;
@@ -32,7 +32,8 @@ let key = "abd5a3df6c5a4e9599f123553252108";
           document.querySelector(".PM2").innerHTML = `PM2.5<br>${data.current.air_quality.pm2_5.toFixed(1)} µg/m³<br><span style="color:green">Good</span>`;
           }
           else{
-          document.querySelector(".PM2").innerHTML = `PM2.5<br>${data.current.air_quality.pm2_5.toFixed(1)} µg/m³<br><span style="color:red">Bad<span>`; 
+          document.querySelector(".PM2").innerHTML = `PM2.5<br>${data.current.air_quality.pm2_5.toFixed(1)} µg/m³<br><span 
+          style="color:red">Bad</span>`; 
           }
 
 
@@ -66,46 +67,120 @@ let key = "abd5a3df6c5a4e9599f123553252108";
           
           // CO
           if (data.current.air_quality.co <= 1.0) {
-            document.querySelector(".co").innerHTML =`CO<br>${data.current.air_quality.co.toFixed(2)} mg/m³  <br><span style="color:green;">Good</span>`;
+            document.querySelector(".co").innerHTML =`CO<br>${data.current.air_quality.co.toFixed(2)} mg/m³  <br><span style="color:green;">Good<span>`;
           } else {
-            document.querySelector(".co").innerHTML =`CO<br>${data.current.air_quality.co.toFixed(2)} mg/m³ <br><span style="color:red;">Bad</span>`;
+            document.querySelector(".co").innerHTML =`CO<br>${data.current.air_quality.co.toFixed(2)} mg/m³ <br><span style="color:red;">Bad<span>`;
           }
           // Weather icon
           let weatherIcon = document.querySelector(".icon");
-          let condition = data.current.condition.text;
+          let condition = data.current.condition.text.toLowerCase();
 
-          if (condition === "Clear") {
+          if (condition.includes("clear") || condition.includes("sunny"))
+          {
             weatherIcon.src = "clear.png";
-          }
-          else if (condition === "Clouds" || condition === "Cloudy" || condition === "Partly Cloudy" || condition === "Overcast") {
+          } 
+          else if (condition.includes("cloud")) 
+          {
             weatherIcon.src = "clouds.png";
           } 
-          else if (condition === "Drizzle") {
+          else if (condition.includes("drizzle")) 
+            {
             weatherIcon.src = "drizzle.png";
-          }
-          else if (condition === "Mist") {
-            weatherIcon.src = "mist.png";
-          }
-          else if (condition === "Rain" || condition === "Light rain" || condition === "Light rain shower")  {
-            weatherIcon.src = "rain.png";
-          }
-          else if(condition === "Moderate or heavy rain shower" || condition === "Moderate or heavy rain with thunder")
+          } 
+          else if (condition.includes("mist")) 
           {
-             weatherIcon.src = "thunder.png";
-          }
-
-          else if (condition === "Snow") {
+            weatherIcon.src = "mist.png";
+          } 
+          else if (condition.includes("rain")) 
+          {
+            weatherIcon.src = "rain.png";
+          } 
+          else if (condition.includes("thunder")) 
+          {
+            weatherIcon.src = "thunder.png";
+          } 
+          else if (condition.includes("snow")) 
+          {
             weatherIcon.src = "snow.png";
-          }
-          else if (condition === "Fog") {
+          } 
+          else if (condition.includes("fog") || condition.includes("haze")) 
+          {
             weatherIcon.src = "fog.png";
-          }
-          else if (condition === "Patchy rain nearby" || condition === "Patchy light rain") {
+          } 
+          else if (condition.includes("patchy")) 
+          {
+
             weatherIcon.src = "patchyrain.png";
-          }
-          else {
+          } 
+          else 
+          {
             weatherIcon.src = "default.png";
           }
+
+          // Time
+// ****************************
+          // const datte = data.location.localtime
+          // const timee = datte.split(" ")[1]
+          // **********************
+          // console.log(datte.split(" ")[1])
+
+         //  converts the string into a real Date object.
+         let localTime = new Date(data.location.localtime);
+         let otherhours = localTime.getHours().toString().padStart(2, "0");
+         let otherminutes = localTime.getMinutes().toString().padStart(2, "0");
+         document.querySelector(".currentDay").innerHTML = `<i class="fa-solid fa-clock otherclock"></i> ${otherhours}:${otherminutes}`;
+         
+
+        
+        let date = localTime.getDate();
+        let months=localTime.getMonth()+1;
+        let year=localTime.getFullYear();
+        switch (months ) 
+        {
+        case 1:
+        document.querySelector(".currentTime").innerHTML = `<i class="fa-solid fa-calendar otherclander"></i> ${date} January ${year}`;
+        break;
+        case 2:
+        document.querySelector(".currentTime").innerHTML = `<i class="fa-solid fa-calendar otherclander"></i> ${date} February ${year}`;
+        break;
+        case 3:
+        document.querySelector(".currentTime").innerHTML = `<i class="fa-solid fa-calendar otherclander"></i> ${date} March ${year}`;
+        break;
+        case 4:
+        document.querySelector(".currentTime").innerHTML = `<i class="fa-solid fa-calendar otherclander"></i> ${date} April ${year}`;
+        break;
+        case 5:
+        document.querySelector(".currentTime").innerHTML = `<i class="fa-solid fa-calendar otherclander"></i> ${date} May ${year}`;
+        break;
+        case 6:
+        document.querySelector(".currentTime").innerHTML = `<i class="fa-solid fa-calendar otherclander"></i> ${date} June ${year}`;
+        break;
+        case 7:
+        document.querySelector(".currentTime").innerHTML = `<i class="fa-solid fa-calendar otherclander"></i> ${date} July ${year}`;
+        break;
+        case 8:
+        document.querySelector(".currentTime").innerHTML = `<i class="fa-solid fa-calendar otherclander"></i> ${date} August ${year}`;
+        break;
+        case 9:
+        document.querySelector(".currentTime").innerHTML = `<i class="fa-solid fa-calendar otherclander"></i> ${date} September ${year}`;
+        break;
+        case 10:
+        document.querySelector(".currentTime").innerHTML = `<i class="fa-solid fa-calendar otherclander"></i> ${date} October ${year}`;
+        break;
+        case 11:
+        document.querySelector(".currentTime").innerHTML = `<i class="fa-solid fa-calendar otherclander"></i> ${date} November ${year}`;
+        break;
+        case 12:
+        document.querySelector(".currentTime").innerHTML = `<i class="fa-solid fa-calendar otherclander"></i> ${date} December ${year}`;
+        break;
+        default:
+        document.querySelector(".currentTime").innerHTML = `<i class="fa-solid fa-calendar otherclander"></i> ${date} ${year}`;
+        }
+        // document.querySelector(".currentTime").innerHTML = `${date}-${months}-${year}`;
+
+//  document.querySelector(".currentDay").innerHTML=data.location.localtime
+        //  let time= document.querySelector(".currentTime")
+
 
           document.querySelector(".inner-container").style.display = "flex";
           document.querySelector(".error").style.display = "none";

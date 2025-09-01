@@ -95,13 +95,17 @@ button:active {
       justify-content: space-between;
       font-weight: 600;
       font-size: 15px;
+     background: #fff;
+    border-radius: 14px;
+    padding: 5px 8px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
     }
 
     /* Weather Card */
     .weather-card, .air-card {
       background: #fff;
       border-radius: 14px;
-      padding: 18px;
+      padding: 17px;
       box-shadow: 0 4px 16px rgba(0,0,0,0.12);
     }
 
@@ -179,4 +183,10 @@ button:active {
     }
 .cityname,.country{
     font-size: 15px;
+}
+.pinicon, .countryicon, .otherclock, .otherclander{
+    background-clip: text !important;
+    color: transparent !important;
+    background-image: linear-gradient(360deg, #5daeff 0%, #2290ff 100%) !important;
+
 }
